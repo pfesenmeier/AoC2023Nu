@@ -1,6 +1,6 @@
 public class CounterService: ICounterService
 {
-    public int Count { get; set; }
+    public int Count { get; set; } = 0;
 }
 
 public interface ICounterService

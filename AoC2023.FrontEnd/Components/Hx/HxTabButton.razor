@@ -1,0 +1,35 @@
+@using Microsoft.AspNetCore.Components
+@namespace AoC2023.FrontEnd.Components.Hx
+
+@code {
+    [Parameter]
+    public bool Selected { get; set; } = false;
+
+    [Parameter, EditorRequired]
+    public required string Endpoint { get; set; }
+
+    [Parameter, EditorRequired]
+    public required string Name { get; set; }
+
+}
+
+@{
+
+    Dictionary<string, object> attributes = new()
+{
+{ "hx-get", Endpoint },
+{ "hx-target", "#tab-content" },
+{ "role", "tab" },
+// https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected#grid
+{ "aria-selected", "false" },
+{ "aria-controls", "tab-content" }
+};
+
+    if (Selected)
+    {
+        attributes.Add("class", "selected");
+    }
+
+}
+
+<button @attributes=attributes>@Name</button>;

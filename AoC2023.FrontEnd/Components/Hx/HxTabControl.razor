@@ -3,41 +3,21 @@
 
 @code {
     public record Tab(string Name, string Endpoint);
-    private record TabDisplay(Tab Tab, bool Selected = false);
 
     [Parameter, EditorRequired]
-    public IEnumerable<Tab> Tabs { get; set; }
+    public List<Tab> TabData { get; set; }
 
-
+    // initial render
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    private RenderFragment<TabDisplay> Button = (TabDisplay tab) =>
-    {
-        Dictionary<string, object> attributes = new()
-        {
-            { "hx-get", tab.Tab.Endpoint },
-            { "hx-target", "#tab-content" },
-            { "role", "tab" },
-            // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected#grid
-            { "aria-selected", "false" },
-            { "aria-controls", "tab-content" }
-        };
-
-        if (tab.Selected)
-        {
-            attributes.Add("class", "selected");
-        }
-
-        return @<button @attributes=attributes>@tab.Tab.Name</button>;
-};
 }
 
-<div class="tab-list" role="tablist">
-    @Button(new(Tab: Tabs.First(), Selected: true))
-    @foreach (var tab in Tabs.Skip(1))
+
+ <div class="tab-list" role="tablist">
+    <HxTabButton Endpoint=@TabData[0].Endpoint Name=@TabData[0].Name Selected=true />
+    @foreach (var tab in TabData.Skip(1))
     {
-        @Button(new(tab))
+        <HxTabButton Endpoint=@tab.Endpoint Name=@tab.Name />
     }
 </div>
 

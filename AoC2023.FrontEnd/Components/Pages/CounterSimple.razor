@@ -1,0 +1,19 @@
+@using AoC2023.FrontEnd.Components.Hx
+@inject ICounterService CounterService
+@attribute [StreamRendering]
+
+@namespace AoC2023.FrontEnd.Components.Pages
+@page "/counter2"
+
+<div id="target">
+    <HxCounter Count=@CounterService.Count />
+</div>
+<button hx-get="/increment2" hx-target="#target">Increment the counter</button>
+
+@{
+    List<HxTabControl.Tab> tabs = new();
+    tabs.Add(new(Name: "foobar", Endpoint: "/tab?tab=2"));
+}
+<HxTabControl TabData=@tabs>
+  from parent
+</HxTabControl>

@@ -45,6 +45,8 @@ ILoggerFactory loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory
 
 new CounterApi(serviceProvider,loggerFactory).AddToApp(app);
 
+CounterApiSimple.AddToApp(app);
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 

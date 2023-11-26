@@ -1,10 +1,10 @@
 @namespace AoC2023.FrontEnd.Components.Hx
 @code {
     [Parameter, EditorRequired]
-    public string Target { get; set; }
+    public string Target { get; set; } = default!;
 
     [Parameter, EditorRequired]
-    public string Endpoint { get; set; }
+    public string Endpoint { get; set; } = default!;
 
 }
 
@@ -12,7 +12,6 @@
     Dictionary<string, object> btnAttributes = new() {
         { "hx-get", Endpoint },
         { "hx-target", Target },
-        { "hx-swap", "innerHTML"}
     };
 }
 
