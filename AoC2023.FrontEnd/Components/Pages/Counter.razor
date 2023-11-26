@@ -1,0 +1,87 @@
+﻿@page "/counter"
+@inject LinkGenerator linkGenerator
+@using AoC2023.FrontEnd.Components.Hx;
+@inject AoC2023.FrontEnd.Api.ICounterApi CounterApi;
+
+@code {
+  MarkupString counter;
+  protected async override Task OnInitializedAsync() {
+
+     counter = (MarkupString)await CounterApi.GetCounter2();
+     await base.OnInitializedAsync();
+  }
+}
+
+
+<div id="counter">
+  @counter
+</div>
+<HxTrigger Endpoint="/increment" Target="#counter" />
+
+
+
+
+
+@* @code {
+    public List<HxTabControl.Tab> tabs = new ();
+
+    protected override void OnInitialized() {
+        foreach (var i in Enumerable.Range(0, 3))
+        {
+            tabs.Add(new (Endpoint: $"/tab?tab={i}", Name: $"tab{i}"));
+        }
+
+    base.OnInitialized();
+  }
+}
+
+<PageTitle>Counter</PageTitle>
+
+<HxTabControl Tabs=@tabs>
+</HxTabControl> *@
+
+@* <div id="tabs" hx-get="/tab?tab=1" hx-trigger="load delay:100ms" hx-target="#tab-content" hx-swap="innerHTML"></div>
+<div class="tab-list" role="tablist">
+	<button hx-get="/tab?tab=1" hx-target="#tab-content" class="selected" role="tab" aria-selected="false" aria-controls="tab-content">Tab 1</button>
+	<button hx-get="/tab?tab=2" hx-target="#tab-content" role="tab" aria-selected="false" aria-controls="tab-content">Tab 2</button>
+	<button hx-get="/tab?tab=3" hx-target="#tab-content" role="tab" aria-selected="false" aria-controls="tab-content">Tab 3</button>
+</div>
+
+<div id="tab-content" role="tabpanel" class="tab-content">
+  loading...
+</div> *@
+@* <p role="status" id="counter">Current count: @count</p>
+
+<button 
+  hx-get="@linkGenerator.GetPathByName("increment")"
+  hx-target="#counter"
+>Click Me</button>
+
+dello
+
+    <button>Click Me 3</button>
+<HtmxSwap routeName="increment" >
+  <Trigger>
+    <button>Click Me 2</button>
+  </Trigger>
+</HtmxSwap>
+
+<TabControl>
+  <TabPage Text="Tab 1">
+    <h1>The first tab</h1>
+  </TabPage>
+  <TabPage Text="Tab 2">
+    <h1>The second tab</h1>
+  </TabPage>
+  <TabPage Text="Tab 3">
+    <h1>The third tab</h1>
+  </TabPage>
+</TabControl>
+@code {
+  private int? count;
+
+  protected override void OnInitialized()
+  {
+     count = 42;
+  }
+} *@

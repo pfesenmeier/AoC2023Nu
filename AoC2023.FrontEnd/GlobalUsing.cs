@@ -1,0 +1,1 @@
+global using Parameters = System.Collections.Generic.Dictionary<string, object?>;

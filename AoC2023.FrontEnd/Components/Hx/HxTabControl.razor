@@ -1,0 +1,53 @@
+@namespace AoC2023.FrontEnd.Components.Hx
+@inject LinkGenerator lg
+
+@code {
+    public record Tab(string Name, string Endpoint);
+    private record TabDisplay(Tab Tab, bool Selected = false);
+
+    [Parameter, EditorRequired]
+    public IEnumerable<Tab> Tabs { get; set; }
+
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private RenderFragment<TabDisplay> Button = (TabDisplay tab) =>
+    {
+        Dictionary<string, object> attributes = new()
+        {
+            { "hx-get", tab.Tab.Endpoint },
+            { "hx-target", "#tab-content" },
+            { "role", "tab" },
+            // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected#grid
+            { "aria-selected", "false" },
+            { "aria-controls", "tab-content" }
+        };
+
+        if (tab.Selected)
+        {
+            attributes.Add("class", "selected");
+        }
+
+        return @<button @attributes=attributes>@tab.Tab.Name</button>;
+};
+}
+
+<div class="tab-list" role="tablist">
+    @Button(new(Tab: Tabs.First(), Selected: true))
+    @foreach (var tab in Tabs.Skip(1))
+    {
+        @Button(new(tab))
+    }
+</div>
+
+<div id="tab-content" role="tabpanel" class="tab-content">
+    @if (ChildContent is not null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        @: click on tab to load content
+    }
+</div>

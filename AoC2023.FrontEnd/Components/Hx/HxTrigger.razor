@@ -1,0 +1,19 @@
+@namespace AoC2023.FrontEnd.Components.Hx
+@code {
+    [Parameter, EditorRequired]
+    public string Target { get; set; }
+
+    [Parameter, EditorRequired]
+    public string Endpoint { get; set; }
+
+}
+
+@{
+    Dictionary<string, object> btnAttributes = new() {
+        { "hx-get", Endpoint },
+        { "hx-target", Target },
+        { "hx-swap", "innerHTML"}
+    };
+}
+
+<button @attributes=@btnAttributes>Click Me</button>
