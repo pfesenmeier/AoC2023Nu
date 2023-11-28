@@ -5,15 +5,18 @@
 @namespace AoC2023.FrontEnd.Components.Pages
 @page "/counter2"
 
+<PageTitle>Counter Simple</PageTitle>
+
 <div id="target">
     <HxCounter Count=@CounterService.Count />
 </div>
-<button hx-get="/increment2" hx-target="#target">Increment the counter</button>
+<a role="button" href="" hx-get="/increment2" hx-target="#target">Increment the counter</a>
 
 @{
     List<HxTabControl.Tab> tabs = new();
-    tabs.Add(new(Name: "foobar", Endpoint: "/tab?tab=2"));
+    tabs.Add(new(Name: "first", Endpoint: "/tab?tab=1"));
+    tabs.Add(new(Name: "second", Endpoint: "/tab?tab=2"));
 }
 <HxTabControl TabData=@tabs>
-  from parent
+    This is HxTabControl... Click on tabs to load data.
 </HxTabControl>

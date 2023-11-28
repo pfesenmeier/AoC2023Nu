@@ -17,12 +17,14 @@
 
     Dictionary<string, object> attributes = new()
 {
+// pico disables links without hrefs out of the box
+{ "href", String.Empty },
 { "hx-get", Endpoint },
 { "hx-target", "#tab-content" },
 { "role", "tab" },
 // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected#grid
 { "aria-selected", "false" },
-{ "aria-controls", "tab-content" }
+{ "aria-controls", "tab-content" },
 };
 
     if (Selected)
@@ -32,4 +34,4 @@
 
 }
 
-<button @attributes=attributes>@Name</button>;
+<a @attributes=attributes>@Name</a>

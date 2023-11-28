@@ -12,6 +12,10 @@
     public RenderFragment? ChildContent { get; set; }
 }
 
+@if (TabData.Count is 0) 
+{
+    return; 
+}
 
  <div class="tab-list" role="tablist">
     <HxTabButton Endpoint=@TabData[0].Endpoint Name=@TabData[0].Name Selected=true />
